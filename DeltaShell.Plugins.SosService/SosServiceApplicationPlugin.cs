@@ -1,5 +1,6 @@
 ﻿using DelftTools.Shell.Core;
 using Mono.Addins;
+using System.Collections.Generic;
 
 namespace DeltaShell.Plugins.SosService
 {
@@ -25,6 +26,16 @@ namespace DeltaShell.Plugins.SosService
         public override string FileFormatVersion
         {
             get { return "1.0"; }
+        }
+
+        public override IEnumerable<ModelInfo> GetModelInfos()
+        {
+            yield return new ModelInfo
+            {
+                Name = "Sos Service",
+                Category = "Web services",
+                CreateModel = o => new Models.SosService()
+            };
         }
     }
 }

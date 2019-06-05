@@ -5,6 +5,8 @@ using DelftTools.Shell.Core.Workflow;
 using DelftTools.Shell.Core.Workflow.DataItems;
 using NetTopologySuite.Extensions.Coverages;
 using GeoAPI.Extensions.Feature;
+using SOSClientJSON;
+using SOSClientJSON.Utils;
 
 namespace DeltaShell.Plugins.SosService.Models
 {
@@ -12,16 +14,16 @@ namespace DeltaShell.Plugins.SosService.Models
     {
         private readonly SOSClientJSON.JSONClient jsonClient;
         private readonly FeatureCoverage timeSeries;
-        public string StartTime { get { return StartTime; } set { StartTime = value; } }
-        public string EndTime { get { return EndTime; } set { EndTime = value; } }
-        public string Property { get { return Property; } set { Property = value; } }
-        public string Station { get { return Station; } set { Station = value; } }
+        public readonly string StartTime;
+        public readonly string EndTime;
+        public readonly string Property;
+        public readonly string Station;
 
         public SosService()
         {
-            jsonClient = new SOSClientJSON.JSONClient("http://wellsensorobsp.niwa.co.nz:8080/52n-sos-aquarius-webapp/service");
-            StartTime = SOSClientJSON.Utils.TimeFormat.GetTimeFormatForQuery(2017, 3, 1);
-            EndTime = SOSClientJSON.Utils.TimeFormat.GetTimeFormatForQuery(2017, 3, 2);
+            jsonClient = new JSONClient("http://wellsensorobsp.niwa.co.nz:8080/52n-sos-aquarius-webapp/service");
+            StartTime = TimeFormat.GetTimeFormatForQuery(2017, 3, 1);
+            EndTime = TimeFormat.GetTimeFormatForQuery(2017, 3, 2);
             timeSeries = new FeatureCoverage("Time Series")
             {
                 IsTimeDependent = true,
@@ -30,7 +32,7 @@ namespace DeltaShell.Plugins.SosService.Models
             };
 
             Property = "QR"; // This is for Discharge, HG is for Height of Gauge
-            // Station = "15341"; // ID of the station
+            Station = "15341"; // ID of the station
             DataItems.Add(new DataItem(Station, "Station", typeof(string), DataItemRole.Input, "StationTag"));
             DataItems.Add(new DataItem(timeSeries, "Time Series", typeof(FeatureCoverage), DataItemRole.Output, "TimeSeriesTag"));
         }

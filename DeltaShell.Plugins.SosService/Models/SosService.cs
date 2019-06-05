@@ -7,6 +7,8 @@ using NetTopologySuite.Extensions.Coverages;
 using GeoAPI.Extensions.Feature;
 using SOSClientJSON;
 using SOSClientJSON.Utils;
+using System.Collections.Generic;
+
 
 namespace DeltaShell.Plugins.SosService.Models
 {
@@ -39,8 +41,14 @@ namespace DeltaShell.Plugins.SosService.Models
 
         protected override void OnExecute()
         {
-            var result = jsonClient.PerformTimeSeriesRequest(Property, Station, StartTime, EndTime);
+            TimeSeriesObject result = jsonClient.PerformTimeSeriesRequest(Property, Station, StartTime, EndTime);
             // TODO: add the parsing of the (lat,lon,timeSeries) object to the Coverage
+            TimeSeries outputSeries = new TimeSeries { Components = { new Variable<double>(Property) } };
+            Dictionary<string, decimal> inputSeries = result.TimeSeries;
+            foreach(var item in inputSeries)
+            {
+                outputSeries[item.Key] = item.Value;
+            }
 
         }
 

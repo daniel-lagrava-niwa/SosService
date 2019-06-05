@@ -30,18 +30,24 @@ namespace DeltaShell.Plugins.SosService.Models
             };
 
             Property = "QR"; // This is for Discharge, HG is for Height of Gauge
-            Station = "15341"; // ID of the station
+            // Station = "15341"; // ID of the station
+            DataItems.Add(new DataItem(Station, "Station", typeof(string), DataItemRole.Input, "StationTag"));
             DataItems.Add(new DataItem(timeSeries, "Time Series", typeof(FeatureCoverage), DataItemRole.Output, "TimeSeriesTag"));
         }
 
         protected override void OnExecute()
         {
-            throw new NotImplementedException();
+            var result = jsonClient.PerformTimeSeriesRequest(Property, Station, StartTime, EndTime);
         }
 
         protected override void OnInitialize()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("We are initializing this");
+        }
+
+        private void ValidateInputData()
+        {
+            Console.WriteLine("Validation of Input Data");
         }
     }
 }

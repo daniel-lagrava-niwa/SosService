@@ -58,10 +58,6 @@ namespace DeltaShell.Plugins.SosService.Models
         protected override void OnInitialize()
         {
             timeSeries.Clear();
-
-            timeSeries.Features.AddRange();
-            timeSeries.FeatureVariable.FixedSize = 1;
-            timeSeries.FeatureVariable.AddValues();
         }
 
         private void ValidateInputData()

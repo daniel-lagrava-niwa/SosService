@@ -38,6 +38,8 @@ namespace DeltaShell.Plugins.SosService.Models
         protected override void OnExecute()
         {
             var result = jsonClient.PerformTimeSeriesRequest(Property, Station, StartTime, EndTime);
+            // TODO: add the parsing of the (lat,lon,timeSeries) object to the Coverage
+
         }
 
         protected override void OnInitialize()

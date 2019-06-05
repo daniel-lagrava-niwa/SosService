@@ -44,10 +44,12 @@ namespace DeltaShell.Plugins.SosService.Models
             TimeSeriesObject result = jsonClient.PerformTimeSeriesRequest(Property, Station, StartTime, EndTime);
             // TODO: add the parsing of the (lat,lon,timeSeries) object to the Coverage
             TimeSeries outputSeries = new TimeSeries { Components = { new Variable<double>(Property) } };
+            outputSeries.Name = Station;
             Dictionary<string, decimal> inputSeries = result.TimeSeries;
             foreach(var item in inputSeries)
             {
-                outputSeries[item.Key] = item.Value;
+                var time = DateTime.Parse(item.Key);
+                outputSeries[time] = decimal.ToDouble(item.Value);
             }
 
         }

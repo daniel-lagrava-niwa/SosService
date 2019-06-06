@@ -1,6 +1,8 @@
 ﻿using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using Mono.Addins;
+using System.Collections.Generic; // IEnumerable
+
 namespace DeltaShell.Plugins.SosService
 {
     [Extension(typeof(IPlugin))]
@@ -21,6 +23,10 @@ namespace DeltaShell.Plugins.SosService
         public override string Version
         {
             get { return "1.0"; }
+        }
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo<Models.SosService, ObjectProperties.VolumeModelProperties>();
         }
         public override string FileFormatVersion
         {

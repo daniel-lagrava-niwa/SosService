@@ -18,8 +18,10 @@ namespace DeltaShell.Plugins.SosService.Models
         private readonly FeatureCoverage timeSeries;
         public readonly string StartTime;
         public readonly string EndTime;
-        public readonly string Property;
-        public readonly string Station;
+        private string property;
+        private string station;
+        public string Station { get { return station; } set { station = value; } }
+        public string Property { get { return property; } set { property = value; } }
 
         public SosService()
         {
@@ -33,8 +35,8 @@ namespace DeltaShell.Plugins.SosService.Models
                 Components = { new Variable<double>("Value") },
             };
 
-            Property = "QR"; // This is for Discharge, HG is for Height of Gauge
-            Station = "91401"; // ID of the station
+            property = "QR"; // This is for Discharge, HG is for Height of Gauge
+            station = "91401"; // ID of the station
             DataItems.Add(new DataItem(Station, "Station", typeof(string), DataItemRole.Input, "StationTag"));
             DataItems.Add(new DataItem(timeSeries, "Time Series", typeof(FeatureCoverage), DataItemRole.Output, "TimeSeriesTag"));
         }
@@ -57,7 +59,7 @@ namespace DeltaShell.Plugins.SosService.Models
 
         protected override void OnInitialize()
         {
-            timeSeries.Clear();
+            Console.WriteLine("We are initializing this");
         }
 
         private void ValidateInputData()

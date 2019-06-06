@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using DelftTools.Shell.Gui;
+using System;
 
 namespace DeltaShell.Plugins.SosService.ObjectProperties
 {
@@ -35,7 +36,7 @@ namespace DeltaShell.Plugins.SosService.ObjectProperties
 
         [Category("Input")]
         [DisplayName("Starting Date")]
-        [Description("Starting date in a good format")]
+        [Description("Starting date in format YYYY-MM-DD")]
         public string StartDate
         {
             get { return data.StartDate; }
@@ -43,11 +44,13 @@ namespace DeltaShell.Plugins.SosService.ObjectProperties
         }
         [Category("Input")]
         [DisplayName("End Date")]
-        [Description("End date in a good format")]
+        [Description("End date in format YYYY-MM-DD")]
         public string EndDate
         {
             get { return data.EndDate; }
-            set { data.EndDate = value; }
+            set {
+                data.EndDate = value;
+            }
         }
 
     }

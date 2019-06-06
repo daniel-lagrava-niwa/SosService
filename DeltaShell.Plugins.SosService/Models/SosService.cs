@@ -46,12 +46,14 @@ namespace DeltaShell.Plugins.SosService.Models
 
         protected override void OnExecute()
         {
+            ValidateInputData();
+
             var StartTime = CreateQueryDate(StartDate);
             var EndTime = CreateQueryDate(EndDate);
             TimeSeriesObject result = jsonClient.PerformTimeSeriesRequest(Property, Station, StartTime, EndTime);
             // TODO: add the parsing of the (lat,lon,timeSeries) object to the Coverage
             TimeSeries outputSeries = new TimeSeries { Components = { new Variable<double>(Property) } };
-            outputSeries.Name = Property+ "-" + Station;
+            outputSeries.Name = Property+ "-" + Station + ":" + StartDate + ":" + EndDate;
             Dictionary<string, decimal> inputSeries = result.TimeSeries;
             foreach(var item in inputSeries)
             {
@@ -76,12 +78,23 @@ namespace DeltaShell.Plugins.SosService.Models
         protected override void OnInitialize()
         {
             Console.WriteLine("We are initializing this");
-            timeSeries.Clear();
         }
 
         private void ValidateInputData()
         {
-            Console.WriteLine("Validation of Input Data");
+            DateTime tmp;
+            if (! DateTime.TryParse(StartDate, out tmp))
+            {
+                throw new FormatException("Impossible to parse date: " + StartDate);
+            }
+            if (! DateTime.TryParse(EndDate, out tmp))
+            {
+                throw new FormatException("Impossible to parse date: " + EndDate);
+            }
+            if (DateTime.Parse(StartDate) > DateTime.Parse(EndDate))
+            {
+                throw new ArithmeticException("Start date is later than End date");
+            }
         }
     }
 }

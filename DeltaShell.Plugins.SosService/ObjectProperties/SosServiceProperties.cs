@@ -8,7 +8,7 @@ namespace DeltaShell.Plugins.SosService.ObjectProperties
     {
         [Category("General")]
         [DisplayName("Name")]
-        [Description("Name of this Service")]
+        [Description("Name of this Web Service Model")]
         public string Name
         {
             get { return data.Name; }
@@ -32,5 +32,23 @@ namespace DeltaShell.Plugins.SosService.ObjectProperties
             get { return data.Station; }
             set { data.Station = value; }
         }
+
+        [Category("Input")]
+        [DisplayName("Starting Date")]
+        [Description("Starting date in a good format")]
+        public string StartDate
+        {
+            get { return data.StartDate; }
+            set { data.StartDate = value; }
+        }
+        [Category("Input")]
+        [DisplayName("End Date")]
+        [Description("End date in a good format")]
+        public string EndDate
+        {
+            get { return data.EndDate; }
+            set { data.EndDate = value; }
+        }
+
     }
 }

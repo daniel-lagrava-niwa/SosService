@@ -36,6 +36,13 @@ namespace DeltaShell.Plugins.SosService
                 Category = "Web services",
                 CreateModel = o => new Models.SosService()
             };
+
+            yield return new ModelInfo
+            {
+                Name = "Sos Service Pre Query",
+                Category = "Web services",
+                CreateModel = o => new Models.SosServicePreQuery()
+            };
         }
     }
 }

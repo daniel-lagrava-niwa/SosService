@@ -12,13 +12,13 @@ namespace DeltaShell.Plugins.SosService.Models
 
         public SosServicePreQuery()
         {
-            jsonClient = new SOSClientJSON.JSONClient("http://wellsensorobsp.niwa.co.nz:8080/52n-sos-aquarius-webapp/service");
+            jsonClient = new SOSClientJSON.JSONClient("http://localhost:8080/52n-sos-webapp/service");
         }
 
         protected override void OnExecute()
         {
             SOSClientJSON.Utils.StationsData stationData = jsonClient.PerformCapabilitiesRequest();
-            Log.Debug(stationData.ToString());
+           Log.Debug(stationData.ToString());
 
             Status = ActivityStatus.Done;
         }

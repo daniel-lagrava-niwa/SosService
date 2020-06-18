@@ -26,9 +26,10 @@ namespace DeltaShell.Plugins.SosService.Models
         
         public SosService()
         {
-            jsonClient = new JSONClient("http://wellsensorobsp.niwa.co.nz:8080/52n-sos-aquarius-webapp/service");
-            StartDate = "2017-03-01";
-            EndDate = "2017-03-02";
+            //jsonClient = new JSONClient("http://wellsensorobsp.niwa.co.nz:8080/52n-sos-aquarius-webapp/service");
+            jsonClient = new JSONClient("http://localhost:8080/52n-sos-webapp/service");
+            StartDate = "2012-03-01";
+            EndDate = "2012-03-02";
             
             timeSeries = new FeatureCoverage("Time Series")
             {
@@ -37,7 +38,7 @@ namespace DeltaShell.Plugins.SosService.Models
                 Components = { new Variable<double>("Value") },
             };
 
-            property = "QR"; // This is for Discharge, HG is for Height of Gauge
+            property = "Discharge"; // 
             station = "91401"; // ID of the station
 
             AddDataItemSet<TimeSeries>(new List<TimeSeries>(), "Results", DataItemRole.Output, "ResultsTag", false);
